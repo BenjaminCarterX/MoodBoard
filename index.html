@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodBoard - 情绪追踪</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MoodBoard</h1>
+            <p>记录你的每日情绪</p>
+        </header>
+        
+        <main>
+            <section class="mood-input">
+                <h2>今天感觉如何？</h2>
+                <div class="mood-scale">
+                    <input type="range" id="moodSlider" min="1" max="10" value="5">
+                    <div class="scale-labels">
+                        <span>1</span>
+                        <span>5</span>
+                        <span>10</span>
+                    </div>
+                    <div id="moodValue">5</div>
+                </div>
+                
+                <div class="mood-tags">
+                    <button class="tag" data-tag="开心">😊 开心</button>
+                    <button class="tag" data-tag="平静">😌 平静</button>
+                    <button class="tag" data-tag="焦虑">😰 焦虑</button>
+                    <button class="tag" data-tag="疲惫">😴 疲惫</button>
+                    <button class="tag" data-tag="兴奋">🤩 兴奋</button>
+                    <button class="tag" data-tag="沮丧">😔 沮丧</button>
+                </div>
+                
+                <textarea id="noteInput" placeholder="写点什么... (可选)"></textarea>
+                <button id="saveButton">保存今日心情</button>
+            </section>
+            
+            <section class="mood-history">
+                <h2>情绪历史</h2>
+                <div id="historyList"></div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
