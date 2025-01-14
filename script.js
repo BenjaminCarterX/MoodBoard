@@ -70,25 +70,35 @@ class MoodBoard {
     }
     
     saveMood() {
+        if (this.currentMood.tags.length === 0) {
+            alert('请至少选择一个情绪标签！');
+            return;
+        }
+        
         const today = new Date().toISOString().split('T')[0];
         this.currentMood.date = today;
         
-        let moodHistory = JSON.parse(localStorage.getItem('moodHistory') || '[]');
-        
-        const existingIndex = moodHistory.findIndex(entry => entry.date === today);
-        if (existingIndex > -1) {
-            moodHistory[existingIndex] = { ...this.currentMood };
-        } else {
-            moodHistory.push({ ...this.currentMood });
+        try {
+            let moodHistory = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+            
+            const existingIndex = moodHistory.findIndex(entry => entry.date === today);
+            if (existingIndex > -1) {
+                moodHistory[existingIndex] = { ...this.currentMood };
+            } else {
+                moodHistory.push({ ...this.currentMood });
+            }
+            
+            moodHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+            
+            this.showSaveMessage();
+            this.loadHistory();
+            this.resetForm();
+        } catch (error) {
+            console.error('保存失败:', error);
+            alert('保存失败，请重试！');
         }
-        
-        moodHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
-        localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
-        
-        this.showSaveMessage();
-        this.loadHistory();
-        this.resetForm();
     }
     
     showSaveMessage() {
