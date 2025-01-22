@@ -22,6 +22,7 @@ class MoodBoard {
         const tags = document.querySelectorAll('.tag');
         const noteInput = document.getElementById('noteInput');
         const saveButton = document.getElementById('saveButton');
+        const exportButton = document.getElementById('exportButton');
         
         moodSlider.addEventListener('input', (e) => {
             this.currentMood.score = parseInt(e.target.value);
@@ -40,6 +41,10 @@ class MoodBoard {
         
         saveButton.addEventListener('click', () => {
             this.saveMood();
+        });
+        
+        exportButton.addEventListener('click', () => {
+            this.exportData();
         });
     }
     
@@ -216,6 +221,43 @@ class MoodBoard {
                 最常见情绪: <strong style="color: #667eea;">${mostCommonTag}</strong>
             </div>
         `;
+    }
+    
+    exportData() {
+        const moodHistory = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        
+        if (moodHistory.length === 0) {
+            alert('没有数据可以导出！');
+            return;
+        }
+        
+        const exportData = {
+            exportDate: new Date().toISOString(),
+            totalEntries: moodHistory.length,
+            data: moodHistory
+        };
+        
+        const jsonStr = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `mood-data-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        const exportButton = document.getElementById('exportButton');
+        const originalText = exportButton.textContent;
+        exportButton.textContent = '导出成功！';
+        exportButton.style.background = '#667eea';
+        
+        setTimeout(() => {
+            exportButton.textContent = originalText;
+            exportButton.style.background = '';
+        }, 2000);
     }
 }
 

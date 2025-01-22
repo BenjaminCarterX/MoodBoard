@@ -237,6 +237,27 @@ main {
     font-size: 0.9rem;
 }
 
+.export-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#exportButton {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#exportButton:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
