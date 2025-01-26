@@ -10,6 +10,7 @@ class MoodBoard {
         this.init();
         this.loadHistory();
         this.loadStats();
+        this.loadTheme();
     }
     
     init() {
@@ -23,6 +24,7 @@ class MoodBoard {
         const noteInput = document.getElementById('noteInput');
         const saveButton = document.getElementById('saveButton');
         const exportButton = document.getElementById('exportButton');
+        const themeToggle = document.getElementById('themeToggle');
         
         moodSlider.addEventListener('input', (e) => {
             this.currentMood.score = parseInt(e.target.value);
@@ -45,6 +47,10 @@ class MoodBoard {
         
         exportButton.addEventListener('click', () => {
             this.exportData();
+        });
+        
+        themeToggle.addEventListener('click', () => {
+            this.toggleTheme();
         });
     }
     
@@ -258,6 +264,33 @@ class MoodBoard {
             exportButton.textContent = originalText;
             exportButton.style.background = '';
         }, 2000);
+    }
+    
+    toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+        
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            themeToggle.textContent = '☀️';
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            themeToggle.textContent = '🌙';
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    }
+    
+    loadTheme() {
+        const darkMode = localStorage.getItem('darkMode');
+        const themeToggle = document.getElementById('themeToggle');
+        
+        if (darkMode === 'enabled') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        } else {
+            themeToggle.textContent = '🌙';
+        }
     }
 }
 

@@ -18,8 +18,15 @@ body {
 }
 
 header {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 40px;
+}
+
+.header-content {
+    text-align: center;
+    flex: 1;
 }
 
 header h1 {
@@ -32,6 +39,23 @@ header h1 {
 header p {
     color: rgba(255,255,255,0.8);
     font-size: 1.2rem;
+}
+
+#themeToggle {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+#themeToggle:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
 }
 
 main {
@@ -258,12 +282,62 @@ main {
     transform: translateY(-1px);
 }
 
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+body.dark-mode .mood-input,
+body.dark-mode .mood-stats,
+body.dark-mode .mood-history {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+body.dark-mode .mood-input h2,
+body.dark-mode .mood-stats h2,
+body.dark-mode .mood-history h2 {
+    color: #90cdf4;
+}
+
+body.dark-mode .tag {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+body.dark-mode .tag:hover,
+body.dark-mode .tag.selected {
+    background: #90cdf4;
+    color: #1a202c;
+}
+
+body.dark-mode #noteInput {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-color: #718096;
+}
+
+body.dark-mode .mood-entry {
+    background: #4a5568;
+    color: #e2e8f0;
+}
+
+body.dark-mode .stat-card {
+    background: #4a5568;
+    color: #e2e8f0;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
     }
     
-    header h1 {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .header-content h1 {
         font-size: 2rem;
     }
     
